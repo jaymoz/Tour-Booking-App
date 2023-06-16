@@ -1,0 +1,76 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Main Content -->
+    <main id="rlr-main" class="rlr-main--fixed-top">
+      <div id="rlr-review-from" class="container-xxxl">
+        <section class="rlr-section rlr-section__content--md-top row justify-content-center">
+          <div class="col-xl-5">
+            <fieldset class="rlr-review-form__fieldset">
+              <legend class="rlr-review-form__hidden-legend">Write a review</legend>
+              <!-- Section heading -->
+              <div class="rlr-section__heading">
+                <h1 class="rlr-section__heading--main">Write a review</h1>
+                <span class="rlr-section__heading--sub">Review helps other travelers so please be mindful while reviewing.</span>
+              </div>
+              <div class="rlr-fieldrow">
+                <div class="rlr-fieldrow__form-element">
+                  <div class="rlr-fieldrow__item">
+                    <label class="rlr-form-label rlr-form-label--dark" for="rlr_review_form_title"> Set a title </label> <input type="text" autocomplete="off" maxlength="70" id="rlr_review_form_title" class="form-control" placeholder="Bungee jumping trip in Kathmandu" />
+                  </div>
+                  <div class="rlr-fieldrow__item">
+                    <label class="rlr-form-label rlr-form-label--dark" for="rlr_review_form_desc"> What did you like or dislike? </label>
+                    <textarea id="rlr_review_form_desc" class="form-control form-control--text-area" placeholder="Provide more information for travelers to find your starting point easily, for example, opposite to the xyz landmark building" rows="12"></textarea>
+                  </div>
+
+                  <div class="rlr-fieldrow__item">
+                    <div class="rlr-rating-stars">
+                      <span class="rlr-rating-stars__label">How many stars should they get?</span>
+                      <div class="rlr-rating-stars__iconset">
+                        <i class="rlr-icon-font flaticon-star-1"> </i> <i class="rlr-icon-font flaticon-star-1"> </i> <i class="rlr-icon-font flaticon-star-1"> </i> <i class="rlr-icon-font flaticon-star-1"> </i> <i class="rlr-icon-font flaticon-star"> </i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rlr-fieldrow__item">
+                    <label class="rlr-form-label rlr-form-label--" for="rlr_review_form_uploader"> Add photos from your experiences. </label>
+                    <div class="rlr-drop-region js-rlr-drop-region">
+                      <div class="rlr-drop-region__add-section">
+                        <input required id="rlr_review_form_uploader" class="rlr-drop-region__image-input js-rlr-drop-input" type="file" accept="image/*" />
+                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M24 1.928c12.144 0 22.072 9.928 22.072 22.072 0 12.144-9.928 22.072-22.072 22.072-12.144 0-22.072-9.928-22.072-22.072C1.928 11.856 11.856 1.928 24 1.928zM24 0A23.94 23.94 0 0 0 0 24c0 13.302 10.794 24 24 24 13.204 0 24-10.698 24-24A23.94 23.94 0 0 0 24 0z"
+                            fill="#99A3AD"
+                          />
+                          <path d="M22.844 11.374h1.928v25.06h-1.928v-25.06z" fill="#99A3AD" />
+                          <path d="M11.18 23.132h24.868v1.928H11.18v-1.928z" fill="#99A3AD" />
+                        </svg>
+                        <div class="type-lead rlr-drop-region__add-section__text">Add Photos</div>
+                      </div>
+                    </div>
+                    <div class="splide rlr-view-region" id="rlr_js_splide_photouploader">
+                      <div class="splide__track rlr-view-region__strack">
+                        <ul id="image-preview" class="splide__list"></ul>
+                      </div>
+                    </div>
+                    <div class="rlr-view-input rlr-view-input--js-hide js-rlr-view-input">
+                      <span class="rlr-view-input__submit js-label-submit">
+                        <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M5.394 11.123a.698.698 0 0 1-.99 0L.45 7.17a1.05 1.05 0 0 1 0-1.485l.495-.495a1.05 1.05 0 0 1 1.486 0l2.468 2.468 6.67-6.67a1.05 1.05 0 0 1 1.485 0l.495.496c.41.41.41 1.075 0 1.485l-8.155 8.155z" fill="var(--white)" />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="rlr-review-form__buttons">
+                <button type="button" class="btn rlr-button rlr-review-form__cancel rlr-button--small rlr-button--rounded rlr-button--white">Cancel</button>
+                <button type="button" class="btn rlr-button rlr-review-form__submit rlr-button--small rlr-button--rounded rlr-button--brand">Submit</button>
+              </div>
+            </fieldset>
+          </div>
+        </section>
+      </div>
+    </main>
+    <!-- Footer -->
+
+ {% endblock %}

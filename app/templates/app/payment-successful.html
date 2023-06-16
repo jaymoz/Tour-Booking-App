@@ -1,0 +1,28 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+
+<main id="rlr-main" class="rlr-main--fixed-top">
+	<div class="rlr-section__content--lg-top">
+	  <section class="rlr-section rlr-section__mt rlr-account">
+		<div class="container">
+		  <div class="row">
+			<div class="col-lg-4 offset-lg-4">
+			  <div class="rlr-authforms">
+				<div class="rlr-authforms__header">
+				  <img src="{% static 'assets/images/logos/Logomark.svg' %}" alt="Logo" />
+				  <h2 style="color:aquamarine;">Your Payment was successful</h2>
+				  <p>Thank you! Book another tour</p>
+				</div>
+				<div class="rlr-authforms__back">
+				  <a href="{% url 'tours' %}"><img src="{% static 'assets/images/back-arrow.png' %}" alt="back arrow" />Back to tours</a>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </section>
+	</div>
+  </main>
+
+  {% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+
+    <main id="rlr-main" class="rlr-main--fixed-top">
+      <section class="rlr-icon-font-page rlr-section rlr-section__content--md-top">
+        <div class="container">
+          <!-- Section heading -->
+          <div class="rlr-section-header">
+            <!-- Section heading -->
+            <div class="rlr-section__title">
+              <h2 class="rlr-section__title--main">Travel gallery</h2>
+              <span class="rlr-section__title--sub">Brilliant reasons VyesMir should be your one-stop-shop!</span>
+            </div>
+            <div class="button-row">
+              <a href="{% url 'tours' %}" class="btn rlr-button rlr-button--large rlr-button--rounded rlr-button--brand"> View tours </a>
+            </div>
+          </div>
+          <div class="rlr-lightbox--gallery">
+            <div class="rlr-lightbox--gallery__wrapper">
+							{% for gal in gallery %}
+              <a data-fslightbox="demo-images" data-foo="bar" href="{{gal.imageURL}}">
+                <figure class="rlr-lightbox--gallery__figure">
+                  <img class="rlr-lightbox--gallery__img" src="{{gal.imageURL}}" alt="Anchor Button" />
+                  <figcaption class="rlr-lightbox--gallery__figcaption">
+                    <span>{{forloop.counter}}</span>
+                  </figcaption>
+                </figure>
+              </a>
+							{% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+   <!-- Footer -->
+
+
+{% endblock %}

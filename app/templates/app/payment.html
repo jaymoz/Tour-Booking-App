@@ -1,0 +1,219 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+<script src="https://www.paypal.com/sdk/js?client-id=ASxQbYpqGT7jEXY7n3Y_1qpKnwpRVvrF0N5gdNya9d8zIibKR9SFiZhz263SfN7fxsjnu2pROC4Vlr4m&currency=USD&disable-funding=paylater"></script>
+    <main id="rlr-main" class="rlr-main--fixed-top">
+      <div class="rlr-section__content--md-top">
+        <div class="rlr-section rlr-section__my">
+          <div class="rlr-checkout">
+            <article id="post-7" class="post-7 page type-page status-publish hentry">
+              <div class="container-xxl">
+                <div class="entry-content">
+                  <div class="woocommerce">
+                    <div class="woocommerce-info">
+                      <div class="rlr-page-title">
+                        <span class="rlr-page-title__icon"> <i class="rlr-icon-font flaticon-carbon-shopping-cart"> </i> </span>
+                        <div>
+                          <h2 class="type-h3 rlr-page-title__title">Checkout</h2>
+                          <span class="rlr-page-title__desc">One more step left for your trip...</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="woocommerce-notices-wrapper"></div>
+                    <form name="checkout" method="post" class="checkout woocommerce-checkout" action="https://ui.emprise.tours/order-received/" enctype="multipart/form-data" novalidate="novalidate">
+                      <div class="col2-set" id="customer_details">
+                        <div class="col-1">
+                          <div class="woocommerce-billing-fields">
+                            <div class="woocommerce-billing-fields__field-wrapper">
+
+                              <h6 class="checkout__section-title">
+                                <span> Payment Details </span>
+                              </h6>
+                              <div id="payment" class="woocommerce-checkout-payment">
+								<table class="shop_table woocommerce-checkout-review-order-table">
+									<tbody>
+									  <tr class="cart_item">
+										<td class="product-name">
+										  <h6 class="cart-item-title">Your Order</h6>
+										  <ul class="cart-item-card">
+											<li class="cart-item-card__header">
+											  <div>
+												<img class="cart-item-card__img" src="{{booking.tour.tourpackageimage_set.first.imageURL}}" alt="..." />
+											  </div>
+											  <div>
+												<p class="cart-item-card__title">{{booking.tour.name}}</p>
+
+											  </div>
+											</li>
+											<li class="cart-item-card__item">
+											  <span class="cart-item-card__close">
+												<a href="{% url 'delete' booking.id %}">
+													<i style="color:black;" class="rlr-icon-font flaticon-cross"></i>
+												</a>
+
+											  </span>
+											  <!-- <div class="cart-item-card__iconcontainer">
+												<span>
+													<a href="{% url 'delete' booking.id %}"> <i class="fa fa-close"></i></a>
+													<a href="{% url 'delete' booking.id %}">Delete</a>
+												</span>
+											  </div> -->
+											  <div class="cart-item-card__item-title">
+												<p>People</p>
+											  </div>
+											  <p class="cart-item-card__item-number">
+
+												{{booking.num_of_people}}
+											  </p>
+											</li>
+											{% for sel in booking.selections.all %}
+											<li class="cart-item-card__item">
+											  <div class="cart-item-card__iconcontainer">
+												<span>
+												  <i class="rlr-icon-font flaticon-hotel-bed"></i>
+												</span>
+											  </div>
+											  <div class="cart-item-card__item-title">
+												<p>{{sel.name}}</p>
+											  </div>
+											  <p class="cart-item-card__item-price">${{sel.price}}</p>
+											</li>
+											{% endfor %}
+											<li class="cart-item-card__footer">
+											  <p>Total</p>
+											  <p>${{booking.grand_total}}</p>
+											</li>
+										  </ul>
+										</td>
+									  </tr>
+									</tbody>
+									<tfoot>
+									  <tr class="order-total">
+										<th>Total payment</th>
+										<td>
+										  <strong>
+											<span class="woocommerce-Price-amount amount">
+											  <bdi>
+												<span class="woocommerce-Price-currencySymbol"> $ </span>
+												{{booking.grand_total}}
+											  </bdi>
+											</span>
+										  </strong>
+										</td>
+									  </tr>
+									  <tr>
+										<td>
+											<div align="center" id="paypal-button-container"></div>
+										</td>
+									  </tr>
+									</tfoot>
+								  </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <!-- .entry-content -->
+              </div>
+            </article>
+            <!-- #post-7 -->
+          </div>
+        </div>
+      </div>
+    </main>
+     <!-- Footer -->
+
+	 <script>
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCookie('csrftoken');
+        var total = '{{booking.grand_total}}'
+        var bookingID = '{{booking.id}}'
+
+        function completeOrder(){
+            var url = "{% url 'payment-completed' %}";
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'X-CSRFToken' : csrftoken,
+                },
+                body: JSON.stringify({'bookingID':bookingID})
+            }).then(function() {
+                // Redirect to the URL specified by the 'url' variable after the fetch request is complete
+                location.href = url;
+            });
+        }
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+            style: {
+                color: 'blue',
+                shape: 'rect',
+                label: 'pay',
+                height: 40
+
+            },
+            // Call your server to set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: total
+                        }
+                    }]
+                });
+            },
+
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details){
+                var url = "{% url 'payment-completed' %}";
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json',
+                        'X-CSRFToken' : csrftoken,
+                    },
+                    body: JSON.stringify({
+                        'bookingID':bookingID,
+                        'status' : details.status
+                    })
+                }).then(function(response) {
+                    // Check if the payment was completed successfully
+                    if (details.status.toLowerCase() === "completed") {
+                        // Redirect to the payment completed page
+                        window.location.href = "{% url 'payment-successful' %}";
+                    } else {
+                        // Redirect to the payment not complete page
+                        window.location.href = "{% url 'payment-failed' %}";
+                    }
+                }).catch(function(error) {
+                    console.log(error);
+                });
+
+            })
+        }
+
+            }).render('#paypal-button-container');
+
+    </script>
+	 {% endblock %}

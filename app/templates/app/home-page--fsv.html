@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Все ваши потребности в отдыхе, турах и туристических темах удовлетворяются в компании Весмир." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Весмир</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'styles/plugins.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
+  </head>
+
+  <body class="rlr-body">
+    <!-- Main Content -->
+    <main id="rlr-main" class="rlr-main">
+      <!-- Hero Banner -->
+      <aside class="rlr-hero--half-mast">
+        <!-- Header and Navigation -->
+        <div class="rlr-banner__media">
+          <header>
+            <nav id="rlrTransNav" class="navigation rlr-navigation fixed-top navigation-transparent">
+              <!-- Logo -->
+              <div class="navigation-header">
+                <div class="navigation-brand-text">
+                  <div class="rlr-logo rlr-logo__navbar-brand rlr-logo--transparent-bg">
+										<a href="{% url 'home' %}">
+                      <img src="{% static 'assets/svg/emprise-logo-white.svg' %}" alt="#" class="rlr-logo__img" />
+                    </a>
+                  </div>
+                  <div class="rlr-logo rlr-logo__navbar-brand rlr-logo--default">
+                    <a href="{% url 'home' %}">
+                      <img src="{% static 'assets/svg/emprise-logo-dark.svg' %}" alt="#" class="rlr-logo__img" />
+                    </a>
+                  </div>
+                </div>
+                <div class="navigation-button-toggler">
+                  <span class="rlr-sVGIcon"> <i class="rlr-icon-font rlr-icon-font--megamenu flaticon-menu"> </i> </span>
+                </div>
+              </div>
+              <div class="navigation-body rlr-navigation__body container-xxxl">
+                <div class="navigation-body-header rlr-navigation__body-header">
+                  <div class="navigation-brand-text">
+                    <div class="rlr-logo rlr-logo__navbar-brand rlr-logo--transparent-bg">
+											<a href="{% url 'home' %}">
+                        <img src="{% static 'assets/svg/whitelogo.svg' %}" alt="#" class="rlr-logo__img" />
+                      </a>
+                    </div>
+                    <div class="rlr-logo rlr-logo__navbar-brand rlr-logo--default">
+											<a href="{% url 'home' %}">
+                        <img src="{% static 'assets/svg/whitelogo.svg' %}" alt="#" class="rlr-logo__img" />
+                      </a>
+                    </div>
+                  </div>
+                  <span class="rlr-sVGIcon navigation-body-close-button"> <i class="rlr-icon-font rlr-icon-font--megamenu flaticon-close"> </i> </span>
+                </div>
+
+                <!-- Main menu -->
+                <ul class="navigation-menu rlr-navigation__menu rlr-navigation__menu--main-links">
+                  <!-- Dropdown menu 1 -->
+                  <li class="navigation-item is-active">
+                    <a class="navigation-link" href="{% url 'home' %}">Главная</a>
+
+                  </li>
+
+                  <!-- Dropdown menu 1 -->
+                  <li class="navigation-item">
+                    <a class="navigation-link" href="{% url 'tours' %}">Туры</a>
+                  </li>
+
+                  </li>
+                  <!-- Dropdown menu 2 -->
+                  <li class="navigation-item">
+                    <a class="navigation-link" href="./contact.html"> Контакт </a>
+                  </li>
+                  <li class="navigation-item">
+                    <a class="navigation-link" href="./gallery-page.html"> Галерея </a>
+                  </li>
+                </ul>
+                <!-- User actions menu -->
+            <ul class="navigation-menu rlr-navigation__menu align-to-right">
+
+                  <!-- User account dropdown -->
+									<li class="navigation-item">
+										{% if request.user.is_authenticated %}
+										<a class="navigation-link" href="{% url 'tours' %}"> {{request.user.username}} <img class="ui right spaced avatar image" src="{% static 'assets/images/blog-single-avatar.png' %}" alt="account avatar" /> </a>
+										<ul class="navigation-dropdown">
+											<li class="navigation-dropdown-item">
+												<a class="navigation-dropdown-link" href="{% url 'dashboard' %}">Личный кабинет</a>
+											</li>
+											<li class="navigation-dropdown-item">
+												<a class="navigation-dropdown-link" href="{% url 'dashboard' %}">Мои заказы</a>
+											</li>
+											<li class="navigation-dropdown-item">
+												<hr class="dropdown-divider rlr-dropdown__divider" />
+											</li>
+											<li class="navigation-dropdown-item">
+												<a class="navigation-dropdown-link" href="{% url 'logout' %}">Выход</a>
+											</li>
+										</ul>
+										{% else %}
+										<a class="navigation-link" href="{% url 'login' %}"> Войти <img
+											class="ui right spaced avatar image"
+											src="{% static 'assets/images/blog-single-avatar.png' %}"
+											alt="account avatar">
+									</a>
+									{% endif %}
+
+									</li>
+           </ul>
+         </div>
+       </nav>
+    </header>
+		<div style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 10; background-color: rgba(255, 255, 255, 0);" id="message" class="bootstrap container">
+			{% if messages %}
+				{% for message in messages %}
+					<div align="center" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+						{{ message }}
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+            <div class="outter">
+              <div class="video-container">
+                <video src="{% static 'assets/background_vid.mp4' %}" autoplay loop playsinline muted></video>
+                <div class="container rlr-callout">
+                  <div class="rlr-callout__text">
+                    <header class="rlr-banner-splide__header">
+                      <h2 class="rlr-banner-splide__slogan">Познакомьтесь с экзотическим миром.</h2>
+                      <span class="rlr-banner-splide__sub-title">Экскурсии по городу, созданные для Марко Поло в вас</span>
+                    </header>
+                  </div>
+                  <div class="row justify-content-md-center">
+                    <!-- Search banner -->
+                    <form class="rlr-banner-search rlr-banner-search--rounded">
+                      <div class="rlr-banner-search__input-wrapper">
+                        <!-- Destination -->
+                        <div class="rlr-banner-input-group rlr-banner-input-group rlr-banner-input-group--home-search rlr-js-autocomplete-demo rlr-banner-search__banner-input rlr-js-search-layout-wrapper">
+                          <label class="rlr-banner-input-group__label" for="destination_input">
+                            <mark>Местоположение</mark>
+                          </label>
+                          <div class="rlr-banner-input-group__input-wrapper">
+                            <input id="destination_input" name="location" type="text" autocomplete="off" class="rlr-banner-input-group__input destination_input" placeholder="Укажите место назначения" />
+                            <i class="rlr-icon-font flaticon-map-marker"> </i>
+                            <ul id="home_destination_results" class="rlr-banner-input-group--location-dropdown rlr-autocomplete"></ul>
+                          </div>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="rlr-banner-input-group rlr-banner-search__banner-input rlr-js-search-layout-wrapper">
+                          <label class="rlr-banner-input-group__label" for="rlr-banner-input-group-dates">
+                            <mark>Дата</mark>
+                          </label>
+                          <div class="rlr-banner-input-group__input-wrapper">
+                            <input id="rlr-banner-input-group-dates" type="text" autocomplete="off" class="rlr-banner-input-group__input eee_home_search_flatpickr" placeholder="Установленные даты" />
+                            <i class="rlr-icon-font flaticon-calendar"> </i>
+                            <ul id="home_date_results" class="rlr-banner-input-group--date-dropdown rlr-autocomplete"></ul>
+                          </div>
+                        </div>
+                      </div>
+                      <button class="rlr-banner-search__submit-button" aria-label="banner submit">
+                        <i class="rlr-icon-font flaticon-search"> </i>
+                      </button>
+                    </form>
+                  </div>
+                  <div class="rlr-banner-splide--fullwidth-v2">
+                    <div class="rlr-banner-font">
+                      <a href="./search-results--3-col.html" class="rlr-icon-text rlr-icon-text--anchor rlr-icon-text__block"> <i class="rlr-icon-font flaticon-luggage-1"> </i> <span class="">Туры </span> </a>
+                      <a href="./contact.html" class="rlr-icon-text rlr-icon-text--anchor rlr-icon-text__block"> <i class="rlr-icon-font flaticon-headset"> </i> <span class="">Контакт </span> </a>
+                      <a href="./about.html" class="rlr-icon-text rlr-icon-text--anchor rlr-icon-text__block"> <i class="rlr-icon-font flaticon-temple"> </i> <span class="">о компании </span> </a>
+                    </div>
+                  </div>
+
+
+									<script>
+										var message_ele = document.getElementById("message");
+										setTimeout(function(){
+										 message_ele.style.display = "none";
+									}, 3000);
+
+									</script>
+
+  </body>
+</html>

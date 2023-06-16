@@ -1,0 +1,85 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+
+    <main id="rlr-main" class="rlr-main--fixed-top">
+      <!-- Header banner -->
+      <section class="rlr-section">
+        <div class="rlr-cta rlr-cta--no-button">
+          <h2>Contact us</h2>
+          <p>Git in touch via phone, email or fill in the form below</p>
+        </div>
+      </section>
+      <!-- Main content -->
+      <section class="rlr-section rlr-section__mt">
+        <div class="container">
+          <div class="row justify-content-around">
+            <!-- Contact form -->
+            <div class="col-xl-offset-1 col-xxl-5 col-lg-5">
+              <div class="rlr-contact-form">
+                <div class="rlr-contact-form__header">
+                  <div class="rlr-page-title">
+                    <span class="rlr-page-title__icon"> <i class="rlr-icon-font flaticon-fluent-hand-left-20-regular"> </i> </span>
+                    <div>
+                      <h2 class="type-h3 rlr-page-title__title">Hi, we’re happy to help you!</h2>
+                      <span class="rlr-page-title__desc">Please enter detials so we can reach out to you</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="rlr-contact-form__body">
+					<form method="POST" action=".">
+						{% csrf_token %}
+						{{ formset.management_form }}
+						{% for form in formset %}
+						  <div class="rlr-contact-form__input-group">
+							<label class="type-body-medium rlr-contact-form__label">First Name</label>
+							{{ form.first_name }}
+						  </div>
+						  <div class="rlr-contact-form__input-group">
+							<label class="type-body-medium rlr-contact-form__label">Last Name</label>
+							{{ form.last_name }}
+						  </div>
+						  <div class="rlr-contact-form__input-group">
+							<label class="type-body-medium rlr-contact-form__label">Phone</label>
+							{{ form.phone }}
+						  </div>
+						  <div class="rlr-contact-form__input-group">
+							<label class="type-body-medium rlr-contact-form__label">Age</label>
+							{{ form.age }}
+						  </div>
+						  <div class="rlr-contact-form__input-group">
+							<label class="type-body-medium rlr-contact-form__label">Passport Number</label>
+							{{ form.passport_no }}
+						  </div>
+						  <div class="rlr-contact-form__input-group">
+							<label class="type-body-medium rlr-contact-form__label">Sex</label>
+							{{ form.sex }}
+						  </div>
+						  <div class="rlr-contact-form__input-group">
+							<label class="type-body-medium rlr-contact-form__label">Nationality</label>
+							{{ form.nationality }}
+						  </div>
+
+						  {% if not forloop.last %}
+						  <br>
+						  <h5>FIll in details for each person in the tour booking</h5>
+							<hr class="form-separator">
+							<br>
+						  {% endif %}
+						{% endfor %}
+
+						<button type="submit" class="btn rlr-button btn rlr-button custom-class rlr-button--medium rlr-button--rounded rlr-button__color--white rlr-button--brand rlr-button-- rlr-button-- rlr-button__color-- rlr-button-- rlr-button--">Submit</button>
+					  </form>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+
+
+		{% endblock %}

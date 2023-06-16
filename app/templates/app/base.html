@@ -1,0 +1,221 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Все ваши потребности в отдыхе, турах и туристических темах удовлетворяются в компании Весмир." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Весмир</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{% static 'assets/favicon.ico' %}" />
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" href="{% static 'styles/plugins.css' %}" />
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
+  </head>
+
+  <body class="rlr-body">
+    <!-- Main Content -->
+    <main id="rlr-main" class="rlr-main">
+      <!-- Hero Banner -->
+      <aside class="rlr-hero--half-mast">
+        <!-- Header and Navigation -->
+        <div class="rlr-banner__media">
+
+          <header>
+            <nav id="rlrTransNav" class="navigation rlr-navigation fixed-top navigation-transparent">
+              <!-- Logo -->
+              <div class="navigation-header">
+                <div class="navigation-brand-text">
+                  <div class="rlr-logo rlr-logo__navbar-brand rlr-logo--transparent-bg">
+                    <a href="{% url 'home' %}">
+                      <img src="{% static 'assets/svg/emprise-logo-white.svg' %}" alt="#" class="rlr-logo__img" />
+                    </a>
+                  </div>
+                  <div class="rlr-logo rlr-logo__navbar-brand rlr-logo--default">
+                    <a href="{% url 'home' %}">
+                      <img src="{% static 'assets/svg/emprise-logo-dark.svg' %}" alt="#" class="rlr-logo__img" />
+                    </a>
+                  </div>
+                </div>
+                <div class="navigation-button-toggler">
+                  <span class="rlr-sVGIcon"> <i class="rlr-icon-font rlr-icon-font--megamenu flaticon-menu"> </i> </span>
+                </div>
+              </div>
+              <div class="navigation-body rlr-navigation__body container-xxxl">
+                <div class="navigation-body-header rlr-navigation__body-header">
+                  <div class="navigation-brand-text">
+                    <div class="rlr-logo rlr-logo__navbar-brand rlr-logo--transparent-bg">
+						<a href="{% url 'home' %}">
+                        <img src="{% static 'assets/svg/emprise-logo-white.svg' %}" alt="#" class="rlr-logo__img" />
+                      </a>
+                    </div>
+                    <div class="rlr-logo rlr-logo__navbar-brand rlr-logo--default">
+                      <a href="{% url 'home' %}">
+                        <img src="{% static 'assets/svg/emprise-logo-dark.svg' %}" alt="#" class="rlr-logo__img" />
+                      </a>
+                    </div>
+                  </div>
+                  <span class="rlr-sVGIcon navigation-body-close-button"> <i class="rlr-icon-font rlr-icon-font--megamenu flaticon-close"> </i> </span>
+                </div>
+
+                <!-- Main menu -->
+                <ul class="navigation-menu rlr-navigation__menu rlr-navigation__menu--main-links">
+                  <!-- Dropdown menu 1 -->
+                  <li class="navigation-item is-active">
+                    <a class="navigation-link" href="{% url 'home' %}">Главная</a>
+
+                  </li>
+
+                  <!-- Dropdown menu 1 -->
+                  <li class="navigation-item">
+                    <a class="navigation-link" href="{% url 'tours' %}">Туры</a>
+                  </li>
+
+                  </li>
+                  <!-- Dropdown menu 2 -->
+                  <li class="navigation-item">
+                    <a class="navigation-link" href="{% url 'contact' %}"> Контакт </a>
+                  </li>
+                  <li class="navigation-item">
+                    <a class="navigation-link" href="{% url 'gallery' %}"> Галерея </a>
+                  </li>
+                </ul>
+                <!-- User actions menu -->
+                <ul class="navigation-menu rlr-navigation__menu align-to-right">
+
+			<li class="navigation-item">
+				{% if request.user.is_authenticated %}
+				<a class="navigation-link" href="{% url 'tours' %}"> {{request.user.username}} <img class="ui right spaced avatar image" src="{% static 'assets/images/blog-single-avatar.png' %}" alt="account avatar" /> </a>
+				<ul class="navigation-dropdown">
+					<li class="navigation-dropdown-item">
+						<a class="navigation-dropdown-link" href="{% url 'dashboard' %}">Личный кабинет</a>
+					</li>
+					<li class="navigation-dropdown-item">
+						<a class="navigation-dropdown-link" href="{% url 'dashboard' %}">Мои заказы</a>
+					</li>
+					{% if request.user.is_staff %}
+					<li class="navigation-dropdown-item">
+						<a class="navigation-dropdown-link" href="/admin/">Админ</a>
+					</li>
+					{% endif %}
+					<li class="navigation-dropdown-item">
+						<hr class="dropdown-divider rlr-dropdown__divider" />
+					</li>
+					<li class="navigation-dropdown-item">
+						<a class="navigation-dropdown-link" href="{% url 'logout' %}">Выход</a>
+					</li>
+				</ul>
+				{% else %}
+				<a class="navigation-link" href="{% url 'login' %}"> Войти <img
+					class="ui right spaced avatar image"
+					src="{% static 'assets/images/blog-single-avatar.png' %}"
+					alt="account avatar">
+			</a>
+			{% endif %}
+
+			</li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+	<div style="position: fixed; top: 0; left: 50%; transform: translateX(-50%); z-index: 10; background-color: rgba(255, 255, 255, 0);" id="message" class="bootstrap container">
+		{% if messages %}
+			{% for message in messages %}
+				<div align="center" class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+    {% block content %}
+	{% endblock %}
+
+  <footer class="rlr-footer rlr-section rlr-section__mt">
+    <div class="container">
+        <div class="rlr-footer__getintouch">
+            <div class="rlr-footer__getintouch_col rlr-footer__getintouch__col--title">
+                <h4>Путешествие</h4>
+                <p>Приключения зовут вас, ребята!</p>
+            </div>
+
+        </div>        <!-- Footer menu -->
+        <div class="rlr-footer__menu">
+            <nav class="rlr-footer__menu__col">
+                <!-- Footer menu col -->
+                <h4>Услуги</h4>
+                <ul>
+                    <p>Бюджетные экскурсии</p>
+                    <p>Экспертное мнение</p>
+                    <p>Роскошные туры</p>
+                    <p>Советы по безопасности</p>
+                    <p>Советы и рекомендации для путешественников</p>
+                </ul>
+            </nav>
+            <nav class="rlr-footer__menu__col">
+                <!-- Footer menu col -->
+                <h4>Приключения</h4>
+                <ul>
+					<p>Пляжный отдых</p>
+                    <p>Прыжки на тарзанке</p>
+                    <p>Экскурсия по городу</p>
+                    <p>Пешеходные походы</p>
+                    <p>Сафари по джунглям</p>
+                    <p>Ночная прогулка по городу</p>
+                </ul>
+            </nav>
+            <nav class="rlr-footer__menu__col">
+                <!-- Footer menu col -->
+                <h4>Популярное местоположение</h4>
+                <ul>
+					<p>Сочи</p>
+                    <p>Мурманск</p>
+                    <p>Италия</p>
+                    <p>Дубай</p>
+                    <p>Турция</p>
+                    <p>Франция</p>
+                </ul>
+            </nav>
+            <!-- Subscribe -->
+            <nav class="rlr-footer__menu__col rlr-footer__menu__col--lg">
+                <h4>Get In Touch</h4>
+                <a href="{% url 'contact' %}" class="rlr-footer__menu__col__letstalk">Давайте обсудим</a>
+                <form class="rlr-subscribe" data-aos="fade-up" data-aos-offset="250"
+data-aos-duration="700">
+
+</form>
+            </nav>
+        </div>        <!-- Footer bottom -->
+        <div class="rlr-footer__legal">
+            <div class="rlr-footer__legal__row rlr-footer__legal__row--top">
+                <div class="rlr-footer__legal__row__col ">
+                    <a href="./about.html">Политика конфиденциальности</a>
+                </div>
+                <!-- Footer social links -->
+                <div class="rlr-footer__legal__row__col">
+                    <a href="#">Linkedin</a>
+                    <span class="separate">/</span>
+                    <a href="#">Facebook</a>
+                    <span class="separate">/</span>
+                    <a href="#">Instagram</a>
+                </div>
+
+              </div>
+
+        </div>
+      </div>
+</footer>
+
+<script>
+	var message_ele = document.getElementById("message");
+	setTimeout(function(){
+   message_ele.style.display = "none";
+}, 3000);
+
+</script>
+
+    <script src="{% static 'vendors/navx/js/navigation.min.js' %}" defer></script>
+    <script src="{% static 'js/main.js' %}" defer></script>
+  </body>
+</html>

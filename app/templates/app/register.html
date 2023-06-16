@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+
+    <main id="rlr-main" class="rlr-main--fixed-top">
+      <div class="rlr-section__content--lg-top">
+        <section class="rlr-section rlr-section__mt rlr-account">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 offset-lg-4">
+                <div class="rlr-authforms">
+                  <div class="rlr-authforms__header">
+                    <img class="mb-2" src="{% static 'assets/images/logos/Logomark.svg' %}" alt="Logo" />
+                    <h2>Создать учетную запись</h2>
+                    <p>Помогает получить доступ ко всем функциям сайта.</p>
+                  </div>
+									<form method="POST">
+										{% csrf_token %}
+										<div class="rlr-authforms__form">
+											<div class="rlr-authforms__inputgroup"><label class="rlr-form-label rlr-form-label--light required"> Логин </label> <input name="username" type="text" autocomplete="off" class="form-control form-control--light" /></div>
+											<div class="rlr-authforms__inputgroup"><label class="rlr-form-label rlr-form-label--light required"> Электронная почта </label> <input name="email" type="уemail" autocomplete="off" class="form-control form-control--light" /></div>
+											<div class="rlr-authforms__inputgroup">
+												<label class="rlr-form-label rlr-form-label--light required"> Пароль </label> <input name="password1" minlength="8" type="password" autocomplete="off" class="form-control form-control--light" />
+												<p class="help-text">Должно быть 8 символов или больше.</p>
+											</div>
+											<div class="rlr-authforms__inputgroup">
+												<label class="rlr-form-label rlr-form-label--light required"> Пароль </label> <input name="password2" minlength="8" type="password" autocomplete="off" class="form-control form-control--light" />
+												<p class="help-text">Должно быть 8 символов или больше.</p>
+											</div>
+											<!-- <button type="button" class="btn rlr-button rlr-button--fullwidth rlr-button--primary">Зарегистрируйтесь</button> -->
+											<button style="margin-left: 150px;" class="btn btn-primary">Зарегистрируйтесь</button>
+										</div>
+										<div class="rlr-authforms__notes">
+											<p>Уже есть учетная запись?<a href="{% url 'login' %}">Войти</a></p>
+										</div>
+									</form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+	{% endblock %}

@@ -1,0 +1,345 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block content %}
+
+<main style="margin-bottom: 500px;" id="rlr-main" class="rlr-main--fixed-top">
+	<div class="rlr-section__content--md-top">
+		<div class="rlr-section rlr-section__my">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 rlr-sidebar-menu__mobile">
+						<select class="rlr-sidebar-menu__sub-menu rlr-form-select" id="rlr-js-sub-menu" name="rlr-sub-menu">
+							<option value="my-account-pages--order">Bookings</option>
+							<option value="my-account-pages--dashboard">Logout</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+					<aside class="rlr-sidebar-menu col-lg-3 col-xs-12 mb-5">
+						<div class="rlr-sidebar-menu__wrapper">
+							<nav class="rlr-sidebar-menu">
+								<ul class="rlr-sidebar-menu__desktop">
+									<li>
+										<a class="rlr-sidebar-menu__link active" href="{% url 'dashboard' %}">
+											<span class="rlr-sidebar-menu__link-icon"><i class="rlr-icon-font flaticon-carbon-box"> </i></span>
+											Booking(s)
+										</a>
+									</li>
+									<li>
+										<a class="rlr-sidebar-menu__link" href="{% url 'logout' %}">
+											<span class="rlr-sidebar-menu__link-icon"><i class="rlr-icon-font flaticon-carbon-logout"> </i></span>
+											Logout
+										</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</aside>
+					<div class="content col-lg-9 col-xs-12">
+						<div class="rlr-data-container woocommerce-MyAccount-content">
+							<h1 class="type-h3 rlr-data-table__title">Tour Package Details</h1>
+							<div style="position: relative;">
+								<a onclick="handleClick(event)">
+									<i style="font-size: 30px; position: absolute; top: 0; right: 0;" class="rlr-icon-font flaticon-carbon-download"></i>
+							</a>
+
+						</div>
+
+							<div class="table">
+								<h5>Booked on: {{booking.ordered_date}}</h5>
+
+								<br>
+								<h3>Duration: </h3>
+								<table class="rlr-data-table woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
+									<thead class="rlr-data-table__header">
+										<tr class="rlr-data-table__header-row">
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number">
+												<span class="nobr"> Start Date </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> End Date </span>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for tour_date, duration in durations.items %}
+										<tr class="rlr-data-table__row woocommerce-orders-table__row woocommerce-orders-table__row--status-on-hold order">
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{tour_date}}</span>
+											</td>
+											<td class="rlr-data-table__cell rlr-data-table__cell-total woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total" data-title="Total">
+												<span class="rlr-data-table__amount woocommerce-Price-amount amount">
+													{{duration}}
+												</span>
+											</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+								<!-- <hr> -->
+								<br>
+								<table class="rlr-data-table woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
+									<thead class="rlr-data-table__header">
+										<tr class="rlr-data-table__header-row">
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number">
+												<span class="nobr"> Name </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Age </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Status </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-status">
+												<span class="nobr"> Starting Point </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-total">
+												<span class="nobr"> City </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-actions">
+												<span class="nobr"> Country </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-actions">
+												<span class="nobr"> Total Price </span>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="rlr-data-table__row woocommerce-orders-table__row woocommerce-orders-table__row--status-on-hold order">
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{booking.tour.name}}</span>
+											</td>
+											<td class="rlr-data-table__cell rlr-data-table__cell-total woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total" data-title="Total">
+												<span class="rlr-data-table__amount woocommerce-Price-amount amount">
+
+													{{booking.tour.age}}+
+												</span>
+											</td>
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" data-title="Status">{{booking.get_status_display}}</td>
+											<td class="rlr-data-table__cell rlr-data-table__cell-total woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total" data-title="Total">
+												<span class="rlr-data-table__amount woocommerce-Price-amount amount">
+
+													{{booking.tour.starting_point}}
+												</span>
+											</td>
+											<td class="rlr-data-table__cell rlr-data-table__cell-total woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total" data-title="Total">
+												<span class="rlr-data-table__amount woocommerce-Price-amount amount">
+
+													{{booking.tour.city}}
+												</span>
+											</td>
+											<td class="rlr-data-table__cell rlr-data-table__cell-total woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total" data-title="Total">
+												<span class="rlr-data-table__amount woocommerce-Price-amount amount">
+
+													{{booking.tour.country}}
+												</span>
+											</td>
+											<td class="rlr-data-table__cell rlr-data-table__cell-total woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total" data-title="Total">
+												<span class="rlr-data-table__amount woocommerce-Price-amount amount">
+													<span class="woocommerce-Price-currencySymbol"> $ </span>
+													{{booking.grand_total}}
+												</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<!-- <hr> -->
+								<br>
+								<br>
+								<h5>Day(s) Details</h5>
+								<table class="rlr-data-table woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
+									<thead class="rlr-data-table__header">
+										<tr class="rlr-data-table__header-row">
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number">
+												<span class="nobr"> Day(s) </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Activity </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Description </span>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for day in booking.tour.days.all %}
+										<tr class="rlr-data-table__row woocommerce-orders-table__row woocommerce-orders-table__row--status-on-hold order">
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{day.name}}</span>
+											</td>
+											<td class="rlr-data-table__cell rlr-data-table__cell-total woocommerce-orders-table__cell woocommerce-orders-table__cell-order-total" data-title="Total">
+												{% for act in day.activity.all %}
+												<span class="rlr-data-table__amount woocommerce-Price-amount amount">
+													{{act.name}} |
+												</span>
+												{% endfor %}
+											</td>
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" data-title="Status">{{day.description}}</td>
+											{% endfor %}
+										</tr>
+									</tbody>
+								</table>
+
+								<br>
+								<h5>Companion(s)</h5>
+								<table class="rlr-data-table woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
+									<thead class="rlr-data-table__header">
+										<tr class="rlr-data-table__header-row">
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number">
+												<span class="nobr"> First Name </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Last Name </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Age </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Sex </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Passport Number </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Nationality </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Phone </span>
+											</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										{% for comp in booking.companions.all %}
+										<tr class="rlr-data-table__row woocommerce-orders-table__row woocommerce-orders-table__row--status-on-hold order">
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{comp.first_name}}</span>
+											</td>
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{comp.last_name}}</span>
+											</td>
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{comp.age}}</span>
+											</td>
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{comp.sex}}</span>
+											</td>
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{comp.passport_no}}</span>
+											</td>
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{comp.phone}}</span>
+											</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+								<br>
+								<br>
+								<h5>Selection(s)</h5>
+								<table class="rlr-data-table woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
+									<thead class="rlr-data-table__header">
+										<tr class="rlr-data-table__header-row">
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number">
+												<span class="nobr">Name </span>
+											</th>
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-date">
+												<span class="nobr"> Price </span>
+											</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										{% for sel in booking.tour.selections.all %}
+										<tr class="rlr-data-table__row woocommerce-orders-table__row woocommerce-orders-table__row--status-on-hold order">
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<span>{{sel.name}}</span>
+											</td>
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-status" data-title="Status">${{sel.price}}</td>
+										</tr>
+
+								{% endfor %}
+									</tbody>
+								</table>
+								<!-- <hr> -->
+								<br>
+								<br>
+								<h5>Tour Package Inclusion</h5>
+								<table class="rlr-data-table woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
+									<thead class="rlr-data-table__header">
+										<tr class="rlr-data-table__header-row">
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number">
+												<span class="nobr"> Included </span>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for pack in booking.tour.tour_package_inclusion.all %}
+										<tr class="rlr-data-table__row woocommerce-orders-table__row woocommerce-orders-table__row--status-on-hold order">
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<li class="rlr-icon-text rlr-secondary-menu-desc__list"><i style="color:green;" class="rlr-icon-font flaticon-check-rounded">
+												</i> <span class="rlr-icon-text__text">{{pack.name}}</span></li>
+											</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+
+								<!-- <hr> -->
+								<br>
+								<br>
+								<h5>Tour Package Exclusion</h5>
+								<table class="rlr-data-table woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
+									<thead class="rlr-data-table__header">
+										<tr class="rlr-data-table__header-row">
+											<th class="woocommerce-orders-table__header woocommerce-orders-table__header-order-number">
+												<span class="nobr"> Not Included </span>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for pack in booking.tour.tour_package_exclusion.all %}
+										<tr class="rlr-data-table__row woocommerce-orders-table__row woocommerce-orders-table__row--status-on-hold order">
+											<td class="rlr-data-table__cell woocommerce-orders-table__cell woocommerce-orders-table__cell-order-number" data-title="Order">
+												<li class="rlr-icon-text rlr-secondary-menu-desc__list"><i style="color:red;" class="rlr-icon-font flaticon-cross-rounded">
+													{% if pack %}
+												</i> <span class="rlr-icon-text__text">{{pack.name}}</span></li>
+												{% endif %}
+											</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
+<script>
+	function handleClick(event) {
+			event.preventDefault();
+			hideFooterOnPrint();
+			window.print();
+			showFooterAfterPrint();
+	}
+
+	function hideFooterOnPrint() {
+			var footer = document.querySelector('footer');
+			footer.style.display = 'none';
+	}
+
+	function showFooterAfterPrint() {
+			var footer = document.querySelector('footer');
+			footer.style.display = '';
+	}
+</script>
+
+
+{% endblock %}
